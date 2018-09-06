@@ -25,7 +25,7 @@ def directory_select():
     tkinter.messagebox.showinfo("TIFF画像平均化","対象の画像を選択してください")
     input_dir = os.path.dirname(tkinter.filedialog.askopenfilename(filetypes = fTyp,initialdir = iDir))
 
-    if not input_dir:#input_dirがnoneのときTrue
+    if not input_dir:
         print("ファイルが選択されませんでした")
         input()
         exit()
