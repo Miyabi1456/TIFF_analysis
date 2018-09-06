@@ -5,7 +5,7 @@ import glob
 import os, tkinter, tkinter.filedialog, tkinter.messagebox
 from itertools import chain
 import csv
-from pylab import *
+import matplotlib.pyplot as plt
 import re
 import pandas as pd
 
@@ -97,19 +97,19 @@ def main():
     orig_df.to_csv(os.path.join(output_dir, "wave.csv"), index  =False)
     
 
-    subplot(1,2,1)  # 2行1列のグラフの1番目の位置にプロット
-    plot(range(start, start+N), windowedData)
-    axis([start, start+N, -1.0, 1.0])
-    xlabel("time [sample]")
-    ylabel("amplitude")
+    plt.subplot(1,2,1)  # 2行1列のグラフの1番目の位置にプロット
+    plt.plot(range(start, start+N), windowedData)
+    plt.axis([start, start+N, -1.0, 1.0])
+    plt.xlabel("time [sample]")
+    plt.ylabel("amplitude")
 
-    subplot(1,2,2)
-    plot(freqlist, fft_amp, marker='o', linestyle='-')
-    axis([0, fs/2, 0, max(fft_amp)*1.1])
-    xlabel("frequency [Hz]")
-    ylabel("amplitude spectrum")
+    plt.subplot(1,2,2)
+    plt.plot(freqlist, fft_amp, marker='o', linestyle='-')
+    plt.axis([0, fs/2, 0, max(fft_amp)*1.1])
+    plt.xlabel("frequency [Hz]")
+    plt.ylabel("amplitude spectrum")
 
-    show()
+    plt.show()
 
 
 if __name__ == "__main__":
