@@ -7,6 +7,7 @@ from itertools import chain
 import csv
 from pylab import *
 import re
+import pandas as pd
 
 def directory_select():
     root = tkinter.Tk()
@@ -88,18 +89,12 @@ def main():
     
     windowedData, fft_amp, freqlist = luminance_fft(pixel_list, N ,fs)
 
-    os.chdir(output_dir)
-    #FFTの結果
-    with open('FFT.csv', 'a',newline="") as f:
-        writer = csv.writer(f)
-        for i in range(len(fft_amp)//2):
-            writer.writerow([freqlist[i],fft_amp[i]])
+    #CSVに出力
+    fft_df = pd.DataFrame({"freq[Hz]" : freqlist, "amp" : fft_amp}, columns = ("freq[Hz]", "amp"))
+    orig_df = pd.DataFrame({"time[s]" : np.arange(start,N/fs,1.0/fs), "amp" : windowedData}, columns = ("time[s]", "amp"))
 
-    #切り出し部分の波形
-    with open('wave.csv', 'a',newline="") as f:
-        writer = csv.writer(f)
-        for i in range(len(windowedData)):
-            writer.writerow([1.0/fs*i+1.0/fs*start, windowedData[i]])
+    fft_df.to_csv(os.path.join(output_dir, "fft.csv"), index = False)
+    orig_df.to_csv(os.path.join(output_dir, "wave.csv"), index  =False)
     
 
     subplot(1,2,1)  # 2行1列のグラフの1番目の位置にプロット
