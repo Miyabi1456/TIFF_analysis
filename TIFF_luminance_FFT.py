@@ -1,4 +1,4 @@
-# -*- cording: utf-8 -*-
+﻿# -*- cording: utf-8 -*-
 import tifffile
 import numpy as np
 import glob
@@ -20,7 +20,7 @@ def directory_select():
     tkinter.messagebox.showinfo('TIFF luminance FFT','保存ディレクトリを選択してください')
     output_dir = tkinter.filedialog.askdirectory(initialdir = iDir)
 
-    if not input_dir:#input_dirがnoneのときTrue
+    if not input_dir:
         print("ファイルが選択されませんでした")
         input()
         exit()
